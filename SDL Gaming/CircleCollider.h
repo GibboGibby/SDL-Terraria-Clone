@@ -8,7 +8,7 @@ private:
 	float radius;
 
 public:
-	CircleCollider(float radius, bool broadPhase = false);
-	~CircleCollider()
+	CircleCollider(float _radius, bool broadPhase = false);
+	~CircleCollider();
 
 };
