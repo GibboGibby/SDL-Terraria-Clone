@@ -29,3 +29,22 @@ void BoxCollider::AddVert(int index, Vector2 pos)
 	mVerts[index] = new GameObject(pos);
 	mVerts[index]->Parent(this);
 }
+
+Vector2 BoxCollider::GetFurthestPoint()
+{
+	Vector2 localPos = Position(LOCAL);
+	int furthestIndex = 0;
+	float dist = (localPos + mVerts[0]->Position(LOCAL)).MagnitudeSquared();
+	float otherDist = 0.0f;
+
+	for (int i = 1; i < MAX_VERTS; i++)
+	{
+		otherDist = (localPos + mVerts[i]->Position(LOCAL)).MagnitudeSquared();
+		if (otherDist > dist) {
+			furthestIndex = i;
+			dist = otherDist;
+		}
+	}
+
+	return localPos + mVerts[furthestIndex]->Position(LOCAL);
+}

@@ -10,5 +10,6 @@ private:
 public:
 	CircleCollider(float _radius, bool broadPhase = false);
 	~CircleCollider();
-
+	
+	Vector2 GetFurthestPoint() override;
 };

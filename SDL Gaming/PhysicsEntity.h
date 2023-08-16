@@ -6,6 +6,8 @@ class PhysicsEntity : public GameObject
 {
 protected:
 	std::vector<Collider*> mColliders;
+	
+	Collider* mBroadPhaseCollider;
 
 public:
 	PhysicsEntity();
