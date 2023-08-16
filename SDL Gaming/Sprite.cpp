@@ -47,7 +47,6 @@ Sprite::Sprite(std::string file, int x, int y, int w, int h, int custX, int cust
 	}
 
 
-	currentAnimation = mAnimations["idle"];
 	//mTex = new AnimatedTexture("DuckSheet2.png", 1, 1, 13, 14, 4,0.5f,AnimatedTexture::HORIZONTAL);
 }
 
@@ -81,6 +80,21 @@ void Sprite::Update()
 	{
 		Translate(Vector2(100.f, 0.f) * deltaTime);
 	}
+}
+
+void Sprite::AddAnimation(std::string animName, Animation* animation)
+{
+	mAnimations[animName] = animation;
+}
+
+std::vector<std::string> Sprite::ReturnListOfAnimations()
+{
+	std::vector<std::string> animations;
+	for (auto& item : mAnimations)
+	{
+		animations.push_back(item.first);
+	}
+	return animations;
 }
 
 void Sprite::Render()

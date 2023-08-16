@@ -4,6 +4,10 @@
 MainDuck::MainDuck()
 {
 	sprite = new Sprite("DuckSheet2.png", 1, 1, 13, 14);
+	sprite->AddAnimation("idle", new Animation(55, 1, 1.15f, 3, LOOP, VERTICAL));
+	sprite->AddAnimation("walking", new Animation(1, 1, 0.6f, 4, LOOP, HORIZONTAL));
+	sprite->ChangeAnimation("idle");
+
 	sprite->Name("Main Character");
 	sprite->Parent(this);
 	sprite->Scale(Vector2(10.f, 10.f));

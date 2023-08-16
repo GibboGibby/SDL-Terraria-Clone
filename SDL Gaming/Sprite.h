@@ -92,6 +92,8 @@ public:
 
 	void UpdateTexture();
 
+	void AddAnimation(std::string animName, Animation* animation);
 	void ChangeAnimation(std::string animName);
 	std::string GetCurrentAnimation();
+	std::vector<std::string> ReturnListOfAnimations();
 };
