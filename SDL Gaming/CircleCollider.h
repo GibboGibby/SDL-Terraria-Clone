@@ -12,4 +12,6 @@ public:
 	~CircleCollider();
 	
 	Vector2 GetFurthestPoint() override;
+
+	float GetRadius();
 };

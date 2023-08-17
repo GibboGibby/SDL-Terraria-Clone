@@ -1,5 +1,5 @@
 #include "PhysicsEntity.h"
-#include "CircleCollider.h"
+
 
 PhysicsEntity::PhysicsEntity()
 {
@@ -21,9 +21,16 @@ PhysicsEntity::~PhysicsEntity()
 		delete mBroadPhaseCollider;
 		mBroadPhaseCollider = nullptr;
 	}
+
+
 }
 
 
+
+bool PhysicsEntity::IgnoreCollision()
+{
+	return false;
+}
 
 void PhysicsEntity::AddCollider(Collider* collider, Vector2 localPos)
 {
@@ -47,6 +54,21 @@ void PhysicsEntity::AddCollider(Collider* collider, Vector2 localPos)
 		mBroadPhaseCollider->Position(VEC2_ZERO);
 	}
 
+}
+
+unsigned long PhysicsEntity::GetID()
+{
+	return mId;
+}
+
+bool PhysicsEntity::CheckCollision(PhysicsEntity* other)
+{
+	return ColliderColliderCheck(mBroadPhaseCollider, other->mBroadPhaseCollider);
+}
+
+void PhysicsEntity::Hit(PhysicsEntity* other)
+{
+	
 }
 
 

@@ -25,19 +25,9 @@ public:
 		GameObject* obj = AddObject(new MainDuck());
 		obj->Position(Vector2(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT));
 		obj->Name("Main Character");
-		//obj->Scale(Vector2(1.0f, 1.0f));
 
-		GameObject* obj2 = AddObject(new Sprite("DuckSheet2.png", 1, 1, 13, 14));
-		obj2->Position(Vector2(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT));
-		obj2->Name("Main Character2");
-
-		GameObject* obj3 = AddObject(new Sprite("DuckSheet2.png", 1, 1, 13, 14));
-		
-		obj3->Position(Vector2(Graphics::SCREEN_WIDTH + 100, Graphics::SCREEN_HEIGHT));
-		obj3->Parent(obj2);
-
-		GameObject* obj4 = AddObject(new Sprite("DuckSheet2.png", 1, 1, 13, 14));
-
-		obj4->Position(Vector2(Graphics::SCREEN_WIDTH + 100, Graphics::SCREEN_HEIGHT + 100));
+		GameObject* obj2 = AddObject(new MainDuck(true));
+		obj2->Position(Vector2(Graphics::SCREEN_WIDTH + 200, Graphics::SCREEN_HEIGHT + 200));
+		obj2->Name("Main Character Enemy");
 	}
 };

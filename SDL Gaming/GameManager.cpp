@@ -32,6 +32,12 @@ GameManager::GameManager()
 
 	mAudioMgr = AudioManager::Instance();
 
+	mPhysMgr = PhysicsManager::Instance();
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Friendly, PhysicsManager::CollisionFlags::Enemy | PhysicsManager::CollisionFlags::EnemyProjectiles);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::FriendlyProjectiles, PhysicsManager::CollisionFlags::Enemy);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Enemy, PhysicsManager::CollisionFlags::Friendly | PhysicsManager::CollisionFlags::FriendlyProjectiels);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::EnemyProjectiles, PhysicsManager::CollisionFlags::Friendly);
+
 	mSceneMgr = SceneManager::Instance();
 
 	if (!Graphics::Initialized())
@@ -64,6 +70,13 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
+
+	SceneManager::Release();
+	mSceneMgr = NULL;
+
+	PhysicsManager::Release();
+	mSceneMgr = NULL;
+
 	AudioManager::Release();
 	mAudioMgr = NULL;
 	AssetManager::Release();
@@ -78,8 +91,7 @@ GameManager::~GameManager()
 	InputManager::Release();
 	mInputMgr = NULL;
 
-	SceneManager::Release();
-	mSceneMgr = NULL;
+	
 
 	delete mTex;
 	mTex = NULL;
@@ -189,7 +201,6 @@ void GameManager::Run()
 
 			//mTex->Update();
 			//sprite->Update();
-			// 
 			
 			//Tex Update Calls
 			mSceneMgr->GetScene()->UpdateTextures();
@@ -205,6 +216,8 @@ void GameManager::Run()
 			mGraphics->Render();
 
 			
+			mPhysMgr->CollisionUpdate();
+			mPhysMgr->PhysicsUpdate();
 			mInputMgr->UpdatePrevInput();
 
 			mTimer->Reset();

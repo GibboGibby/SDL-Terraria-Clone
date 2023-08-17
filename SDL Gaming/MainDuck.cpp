@@ -1,25 +1,37 @@
 #include "Duck.h"
-#include "BoxCollider.h"
 
-MainDuck::MainDuck()
+
+MainDuck::MainDuck(bool enemy)
 {
 	sprite = new Sprite("DuckSheet2.png", 1, 1, 13, 14);
 	sprite->AddAnimation("idle", new Animation(55, 1, 1.15f, 3, LOOP, VERTICAL));
 	sprite->AddAnimation("walking", new Animation(1, 1, 0.6f, 4, LOOP, HORIZONTAL));
 	sprite->ChangeAnimation("idle");
 
-	sprite->Name("Main Character");
+	sprite->Name("Main Character" + enemy ? " - ENEMY" : "");
 	sprite->Parent(this);
 	sprite->Scale(Vector2(10.f, 10.f));
 
 	AddCollider(new BoxCollider(sprite->ScaledDimensions()));
+
+	mId = PhysicsManager::Instance()->RegisterEntity(this, enemy ? PhysicsManager::CollisionLayers::Enemy : PhysicsManager::CollisionLayers::Friendly);
 	
 }
 
 MainDuck::~MainDuck()
 {
+	if (mId != 0)
+	{
+		PhysicsManager::Instance()->UnregisterEntity(mId);
+	}
+
 	delete sprite;
 	sprite = NULL;
+}
+
+void MainDuck::Hit(PhysicsEntity* other)
+{
+	printf("This object is colliding with another object with the name: %s", other->Name().c_str());
 }
 
 void MainDuck::Awake()
@@ -34,6 +46,23 @@ void MainDuck::Start()
 void MainDuck::Update()
 {
 	//sprite->Update();
+
+	if (Name() == "Main Character Enemy")
+		return;
+
+	if (Input->GetKey(SDL_SCANCODE_D))
+	{
+		velocity += Vector2(1.0f, 0.0f);
+	}
+
+	if (Input->GetKey(SDL_SCANCODE_A))
+	{
+		velocity += Vector2(-1.0f, 0.0f);
+	}
+
+	/*
+
+	
 
 	if (!Active()) return;
 
@@ -127,7 +156,7 @@ void MainDuck::Update()
 		if (sprite->GetCurrentAnimation() != "walking")
 			sprite->ChangeAnimation("walking");
 	}
-	
+	*/
 }
 
 void MainDuck::UpdateTexture()

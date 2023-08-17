@@ -6,6 +6,7 @@
 #include "AudioManager.h"
 #include "SceneManager.h"
 #include "Timer.h"
+#include "PhysicsManager.h"
 
 class GameManager
 {
@@ -18,6 +19,7 @@ private:
 	Graphics* mGraphics;
 	AssetManager* mAssetMgr;
 	AudioManager* mAudioMgr;
+	PhysicsManager* mPhysMgr;
 	SceneManager* mSceneMgr;
 
 	SDL_Rect camRect;

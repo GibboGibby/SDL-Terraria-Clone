@@ -1,6 +1,8 @@
 #pragma once
 #include "PhysicsEntity.h"
+#include "BoxCollider.h"
 #include "Sprite.h"
+#include "PhysicsManager.h"
 
 
 class MainDuck : public PhysicsEntity
@@ -12,8 +14,10 @@ private:
 	bool cameraFollow = false;
 
 public:
-	MainDuck();
+	MainDuck(bool enemy = false);
 	~MainDuck();
+
+	virtual void Hit(PhysicsEntity* other);
 
 	virtual void Awake();
 	virtual void Start();

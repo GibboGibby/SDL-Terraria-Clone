@@ -24,3 +24,8 @@ Vector2 CircleCollider::GetFurthestPoint()
 {
 	return VEC2_RIGHT * (radius + Position(LOCAL).Magnitude());
 }
+
+float CircleCollider::GetRadius()
+{
+	return radius;
+}

@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainDuck.cpp" />
     <ClCompile Include="PhysicsEntity.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -164,8 +165,9 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MathsHelper.h" />
-    <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsEntity.h" />
+    <ClInclude Include="PhysicsHelper.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scenes.h" />
