@@ -22,3 +22,7 @@ inline Vector2 DragForceVector(Vector2 velocity, float drag)
 {
 	return DragForceMagnitude(velocity, drag) * -velocity.Normalized();
 }
+
+//https://gamedevelopment.tutsplus.com/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331t
+
+//https://www.codeproject.com/Articles/1067334/Making-a-D-Physics-Engine-Spaces-and-Bodies
