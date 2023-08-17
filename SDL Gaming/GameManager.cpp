@@ -121,6 +121,8 @@ void GameManager::Run()
 
 			
 		}
+
+		
 		if (mTimer->DeltaTime() >= 1.0f / FRAME_RATE)
 		{
 			mGraphics->ClearBackBuffer();
@@ -217,10 +219,18 @@ void GameManager::Run()
 
 			
 			mPhysMgr->CollisionUpdate();
-			mPhysMgr->PhysicsUpdate();
+
+			
 			mInputMgr->UpdatePrevInput();
 
 			mTimer->Reset();
+		}
+
+		if (mTimer->PhysicsDeltaTime() >= 1.0f / PHYSICS_FRAME_RATE)
+		{
+			mSceneMgr->GetScene()->PhysicsUpdate();
+			mPhysMgr->PhysicsUpdate();
+			mTimer->ResetPhysics();
 		}
 
 

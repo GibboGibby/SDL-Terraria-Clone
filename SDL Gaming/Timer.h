@@ -7,7 +7,10 @@ private:
 
 	unsigned int mStartTicks;
 	unsigned int mElapsedTicks;
+	unsigned int mPhysicsStartTicks;
+	unsigned int mPhysicsElapsedTicks;
 	float mDeltaTime;
+	float mPhysicsDeltaTime;
 	float mTimeScale;
 
 public:
@@ -17,7 +20,9 @@ public:
 	static void Release();
 
 	void Reset();
+	void ResetPhysics();
 	float DeltaTime();
+	float PhysicsDeltaTime();
 
 	void TimeScale(float scale);
 	float TimeScale();

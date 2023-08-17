@@ -52,13 +52,24 @@ void MainDuck::Update()
 
 	if (Input->GetKey(SDL_SCANCODE_D))
 	{
-		velocity += Vector2(1.0f, 0.0f);
+		velocity += Vector2(5.0f, 0.0f);
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_A))
 	{
-		velocity += Vector2(-1.0f, 0.0f);
+		velocity += Vector2(-5.0f, 0.0f);
 	}
+
+	if (Input->GetKey(SDL_SCANCODE_W))
+	{
+		velocity += Vector2(0.0f, -5.0f);
+	}
+
+	if (Input->GetKey(SDL_SCANCODE_S))
+	{
+		velocity += Vector2(0.0f, 5.0f);
+	}
+
 
 	/*
 

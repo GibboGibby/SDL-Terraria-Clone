@@ -19,6 +19,7 @@ void Timer::Release()
 Timer::Timer()
 {
 	Reset();
+	ResetPhysics();
 	mTimeScale = 1.0f;
 }
 
@@ -34,9 +35,21 @@ void Timer::Reset()
 	mDeltaTime = 0.0f;
 }
 
+void Timer::ResetPhysics()
+{
+	mPhysicsStartTicks = SDL_GetTicks();
+	mPhysicsElapsedTicks = 0;
+	mPhysicsDeltaTime = 0.0f;
+}
+
 float Timer::DeltaTime()
 {
 	return mDeltaTime;
+}
+
+float Timer::PhysicsDeltaTime()
+{
+	return mPhysicsDeltaTime;
 }
 
 void Timer::TimeScale(float scale)
@@ -53,4 +66,6 @@ void Timer::Update()
 {
 	mElapsedTicks = SDL_GetTicks() - mStartTicks;
 	mDeltaTime = mElapsedTicks * 0.001f;
+	mPhysicsElapsedTicks = SDL_GetTicks() - mPhysicsStartTicks;
+	mPhysicsDeltaTime = mPhysicsElapsedTicks * 0.001f;
 }

@@ -93,7 +93,7 @@ void PhysicsManager::PhysicsUpdate()
 	{
 		for (unsigned int j = 0; j < mCollisionLayers[i].size(); j++)
 		{
-			mCollisionLayers[i][j]->Position(mCollisionLayers[i][j]->Position() + (mCollisionLayers[i][j]->velocity * Timer::Instance()->DeltaTime()));
+			mCollisionLayers[i][j]->Position(mCollisionLayers[i][j]->Position() + (mCollisionLayers[i][j]->velocity * Timer::Instance()->PhysicsDeltaTime()));
 		}
 	}
 }
