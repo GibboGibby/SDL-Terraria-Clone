@@ -41,6 +41,7 @@ void MainDuck::Awake()
 
 void MainDuck::Start()
 {
+
 }
 
 void MainDuck::Update()

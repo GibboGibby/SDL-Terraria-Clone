@@ -23,6 +23,14 @@ struct Vector2
 
 		return Vector2(x / mag, y / mag);
 	}
+	float DotProduct(Vector2 a, Vector2 b)
+	{
+		return a.x * b.x + a.y * b.y;
+	}
+	float Cross(Vector2 a, Vector2 b)
+	{
+		return a.x * b.x + a.y * b.y;
+	}
 
 	Vector2& operator +=(const Vector2& right)
 	{
@@ -41,6 +49,25 @@ struct Vector2
 	}
 };
 
+inline float Dot(Vector2 a, Vector2 b)
+{
+	return a.x * b.x + a.y * b.y;
+}
+
+inline float Cross(Vector2 a, Vector2 b)
+{
+	return a.x * b.y - a.y * b.x;
+}
+
+inline Vector2 Cross(Vector2 a, float s)
+{
+	return Vector2(s * a.y, -s * a.x);
+}
+inline Vector2 Cross(float s, Vector2 a)
+{
+	return Vector2(-s * a.y, s * a.x);
+}
+
 inline Vector2 operator +(const Vector2& left, const Vector2& right)
 {
 	return Vector2(left.x + right.x, left.y + right.y);
@@ -54,6 +81,15 @@ inline Vector2 operator +(const Vector2& left, const float& right)
 inline Vector2 operator -(const Vector2& left, const Vector2& right)
 {
 	return Vector2(left.x - right.x, left.y - right.y);
+}
+inline Vector2 operator -(const Vector2& left, const float& right)
+{
+	return Vector2(left.x - right, left.y - right);
+}
+
+inline Vector2 operator -(const Vector2& right)
+{
+	return Vector2(-right.x, -right.y);
 }
 
 inline Vector2 operator *(const Vector2& left, const float right)
