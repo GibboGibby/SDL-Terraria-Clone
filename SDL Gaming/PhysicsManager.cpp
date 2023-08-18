@@ -83,13 +83,13 @@ void PhysicsManager::ResolveCollision(BoxCollider* col1, BoxCollider* col2)
 
 }
 
-void PhysicsManager::ResolveCollision(CircleCollider* col1, CircleCollider* col2)
+void PhysicsManager::ResolveCollision(PhysicsEntity* entity1, PhysicsEntity* entity2)
 {
-	PhysicsEntity* entity1 = static_cast<PhysicsEntity*>(col1->Parent());
-	PhysicsEntity* entity2 = static_cast<PhysicsEntity*>(col2->Parent());
+	//PhysicsEntity* entity1 = static_cast<PhysicsEntity*>(col1->Parent());
+	//PhysicsEntity* entity2 = static_cast<PhysicsEntity*>(col2->Parent());
 
 	Vector2 resultantVector = entity2->rb.velocity - entity1->rb.velocity;
-	Vector2	normal = resultantVector.Normalized();
+	Vector2	normal = (entity1->rb.velocity - entity2->rb.velocity).Normalized();
 
 	float vecAlongNormal = Dot(resultantVector, normal);
 	if (vecAlongNormal > 0) return;
@@ -102,8 +102,8 @@ void PhysicsManager::ResolveCollision(CircleCollider* col1, CircleCollider* col2
 	//Apply impulses
 
 	Vector2 impulse = j * normal;
-	entity1->rb.velocity -= 1 / entity1->rb.mass * impulse;
-	entity2->rb.velocity += 1 / entity2->rb.mass * impulse;
+	entity1->rb.velocity -= 1 / entity1->rb.mass * impulse * 0.1f;
+	entity2->rb.velocity += 1 / entity2->rb.mass * impulse * 0.1f;
 }
 
 void PhysicsManager::CollisionUpdate()
@@ -120,10 +120,11 @@ void PhysicsManager::CollisionUpdate()
 					{
 						if (mCollisionLayers[i][k]->CheckCollision(mCollisionLayers[j][l]))
 						{
+							
 							//Run collision thing. might need to put this elsewhere tho
-							//ResolveCollision(mCollisionLayers[i][k]->)
 							mCollisionLayers[i][k]->OnCollisionEnter(mCollisionLayers[j][l]);
 							mCollisionLayers[j][l]->OnCollisionEnter(mCollisionLayers[i][k]);
+							ResolveCollision(mCollisionLayers[i][k], mCollisionLayers[j][l]);
 						}
 					}
 				}

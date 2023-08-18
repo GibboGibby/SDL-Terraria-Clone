@@ -26,7 +26,7 @@ public:
 		bool constraints[2] = {false, false};
 		bool detectCollisions;
 		bool freezeRotation;
-		float mass = 0.0f;
+		float mass = 1.0f;
 		float maxAngularVelocity = 7;
 		float maxLinearVelocity;
 		bool isKinematic = true;
