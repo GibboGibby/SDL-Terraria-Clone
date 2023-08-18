@@ -8,6 +8,8 @@ BoxCollider::BoxCollider(Vector2 size)
 	AddVert(2, Vector2(-0.5f * size.x, 0.5f * size.y));
 	AddVert(3, Vector2(0.5f * size.x, 0.5f * size.y));
 
+	mSize = size;
+
 	if (DEBUG_COLLIDERS)
 	{
 		SetDebugTexture(new Sprite("BoxCollider.png"));
@@ -28,6 +30,20 @@ void BoxCollider::AddVert(int index, Vector2 pos)
 {
 	mVerts[index] = new GameObject(pos);
 	mVerts[index]->Parent(this);
+}
+
+AABB BoxCollider::GetAABB()
+{
+	Vector2 botLeft = Position(WORLD) - Vector2(0.5f * mSize.x, -0.5f * mSize.y);
+	AABB vals;
+	vals.min.x = botLeft.x;
+	vals.min.y = botLeft.y;
+
+	vals.max.x = vals.min.x + mSize.x;
+	vals.max.y = vals.min.y + mSize.y;
+
+	return vals;
+
 }
 
 Vector2 BoxCollider::GetFurthestPoint()

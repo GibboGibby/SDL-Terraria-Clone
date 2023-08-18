@@ -64,11 +64,27 @@ unsigned long PhysicsEntity::GetID()
 bool PhysicsEntity::CheckCollision(PhysicsEntity* other)
 {
 	return ColliderColliderCheck(mBroadPhaseCollider, other->mBroadPhaseCollider);
+	if (mColliders.size() != 0)
+	{
+		for (Collider* collider : mColliders)
+		{
+			//ColliderColliderCheck(collider, other->mColliders[0]);
+			for (int i = 0; i < other->mColliders.size(); i++)
+			{
+				return ColliderColliderCheck(collider, other->mColliders[i]);
+			}
+		}
+	}
 }
 
 void PhysicsEntity::Hit(PhysicsEntity* other)
 {
 	
+}
+
+void PhysicsEntity::OnCollisionEnter(PhysicsEntity* other)
+{
+
 }
 
 

@@ -31,7 +31,13 @@ MainDuck::~MainDuck()
 
 void MainDuck::Hit(PhysicsEntity* other)
 {
-	printf("This object is colliding with another object with the name: %s", other->Name().c_str());
+	if (Name() == "Main Character")
+		printf("This object is colliding with another object with the name: %s \n", other->Name().c_str());
+}
+
+void MainDuck::OnCollisionEnter(PhysicsEntity* other)
+{
+
 }
 
 void MainDuck::Awake()
@@ -53,22 +59,22 @@ void MainDuck::Update()
 
 	if (Input->GetKey(SDL_SCANCODE_D))
 	{
-		velocity += Vector2(5.0f, 0.0f);
+		rb.velocity += Vector2(5.0f, 0.0f);
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_A))
 	{
-		velocity += Vector2(-5.0f, 0.0f);
+		rb.velocity += Vector2(-5.0f, 0.0f);
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_W))
 	{
-		velocity += Vector2(0.0f, -5.0f);
+		rb.velocity += Vector2(0.0f, -5.0f);
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_S))
 	{
-		velocity += Vector2(0.0f, 5.0f);
+		rb.velocity += Vector2(0.0f, 5.0f);
 	}
 
 

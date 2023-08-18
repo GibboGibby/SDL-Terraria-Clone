@@ -30,9 +30,13 @@ public:
 		float maxAngularVelocity = 7;
 		float maxLinearVelocity;
 		bool isKinematic = true;
+		bool isStatic = false;
 		bool useGravity = true;
+		float restitution;
 		Vector2 velocity;
 	};
+
+	RigidBody rb;
 
 	PhysicsEntity();
 	virtual ~PhysicsEntity();
@@ -42,6 +46,8 @@ public:
 	bool CheckCollision(PhysicsEntity* other);
 
 	virtual void Hit(PhysicsEntity* other);
+
+	virtual void OnCollisionEnter(PhysicsEntity* other);
 
 	
 

@@ -19,6 +19,8 @@ public:
 
 	virtual void Hit(PhysicsEntity* other);
 
+	virtual void OnCollisionEnter(PhysicsEntity* other);
+
 	virtual void Awake();
 	virtual void Start();
 	virtual void Update();
