@@ -2,6 +2,60 @@
 #include "CircleCollider.h"
 #include "BoxCollider.h"
 
+struct Manifold
+{
+	Collider* A;
+	Collider* B;
+	float penetration;
+	Vector2 normal;
+};
+
+inline bool AABBvsAABBCollision(Manifold& m)
+{
+	BoxCollider* A = static_cast<BoxCollider*>(m.A);
+	BoxCollider* B = static_cast<BoxCollider*>(m.B);
+
+	Vector2 n = B->Position() - A->Position();
+	AABB abox = A->GetAABB();
+	AABB bbox = B->GetAABB();
+
+	float a_extent = (abox.max.x - abox.min.x) / 2;
+	float b_extent = (bbox.max.x - bbox.min.x) / 2;
+
+	float x_overlap = a_extent + b_extent - abs(n.x);
+
+	if (x_overlap > 0)
+	{
+		float a_extent = (abox.max.y - abox.min.y) / 2;
+		float b_extent = (bbox.max.y - bbox.min.y) / 2;
+
+		float y_overlap = a_extent + b_extent - abs(n.y);
+
+		if (y_overlap > 0)
+		{
+			if (x_overlap > y_overlap)
+			{
+				if (n.x < 0)
+					m.normal = Vector2(-1, 0);
+				else
+					m.normal = Vector2(1, 0);
+				m.penetration = x_overlap;
+				return true;
+			}
+			else
+			{
+				if (n.y < 0)
+					m.normal = Vector2(0, -1);
+				else
+					m.normal = Vector2(0, 1);
+				m.penetration = y_overlap;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 inline bool CircleCircleCollision(CircleCollider* c1, CircleCollider* c2)
 {
 	return (c1->Position() - c2->Position()).Magnitude() < (c1->GetRadius() + c2->GetRadius());
@@ -30,6 +84,17 @@ inline bool ColliderColliderCheck(Collider* c1, Collider* c2)
 		return false;
 }
 
+inline bool ColliderColliderCheck(Manifold& m)
+{
+	if (m.A->GetType() == Collider::ColliderType::Box && m.B->GetType() == Collider::ColliderType::Box)
+	{
+		return AABBvsAABBCollision(m);
+		//ResolveCollision(m);
+	}
+	else
+		return false;
+}
+
 inline float DragForceMagnitude(Vector2 velocity, float drag)
 {
 	return velocity.MagnitudeSquared() * drag;
@@ -43,6 +108,11 @@ inline Vector2 DragForceVector(Vector2 velocity, float drag)
 inline float min(float a, float b)
 {
 	return (a < b) ? a : b;
+}
+
+inline float max(float a, float b)
+{
+	return (a < b) ? b : a;
 }
 
 //https://gamedevelopment.tutsplus.com/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331t

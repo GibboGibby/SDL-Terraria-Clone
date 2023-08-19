@@ -1,5 +1,5 @@
 #include "PhysicsEntity.h"
-
+#include "MathsHelper.h"
 
 PhysicsEntity::PhysicsEntity()
 {
@@ -61,9 +61,9 @@ unsigned long PhysicsEntity::GetID()
 	return mId;
 }
 
-bool PhysicsEntity::CheckCollision(PhysicsEntity* other)
+bool PhysicsEntity::CheckCollision(PhysicsEntity* other, Manifold& m)
 {
-	return ColliderColliderCheck(mBroadPhaseCollider, other->mBroadPhaseCollider);
+	//return ColliderColliderCheck(mBroadPhaseCollider, other->mBroadPhaseCollider);
 	if (mColliders.size() != 0)
 	{
 		for (Collider* collider : mColliders)
@@ -71,7 +71,10 @@ bool PhysicsEntity::CheckCollision(PhysicsEntity* other)
 			//ColliderColliderCheck(collider, other->mColliders[0]);
 			for (int i = 0; i < other->mColliders.size(); i++)
 			{
-				return ColliderColliderCheck(collider, other->mColliders[i]);
+				//Manifold* m = new Manifold();
+				m.A = collider;
+				m.B = other->mColliders[i];
+				return ColliderColliderCheck(m);
 			}
 		}
 	}

@@ -83,13 +83,14 @@ void PhysicsManager::ResolveCollision(BoxCollider* col1, BoxCollider* col2)
 
 }
 
+
 void PhysicsManager::ResolveCollision(PhysicsEntity* entity1, PhysicsEntity* entity2)
 {
 	//PhysicsEntity* entity1 = static_cast<PhysicsEntity*>(col1->Parent());
 	//PhysicsEntity* entity2 = static_cast<PhysicsEntity*>(col2->Parent());
 
 	Vector2 resultantVector = entity2->rb.velocity - entity1->rb.velocity;
-	Vector2	normal = (entity1->rb.velocity - entity2->rb.velocity).Normalized();
+	Vector2	normal = -resultantVector.Normalized();
 
 	float vecAlongNormal = Dot(resultantVector, normal);
 	if (vecAlongNormal > 0) return;
@@ -102,8 +103,12 @@ void PhysicsManager::ResolveCollision(PhysicsEntity* entity1, PhysicsEntity* ent
 	//Apply impulses
 
 	Vector2 impulse = j * normal;
-	entity1->rb.velocity -= 1 / entity1->rb.mass * impulse * 0.1f;
-	entity2->rb.velocity += 1 / entity2->rb.mass * impulse * 0.1f;
+	float massSum = entity1->rb.mass + entity2->rb.mass;
+	float ratio = entity1->rb.mass / massSum;
+
+	entity1->rb.velocity -= ratio * impulse * 0.1f;
+	ratio = entity2->rb.mass / massSum;
+	entity2->rb.velocity += ratio * impulse * 0.1f;
 }
 
 void PhysicsManager::CollisionUpdate()
@@ -118,13 +123,17 @@ void PhysicsManager::CollisionUpdate()
 				{
 					for (unsigned int l = 0; l < mCollisionLayers[j].size(); l++)
 					{
-						if (mCollisionLayers[i][k]->CheckCollision(mCollisionLayers[j][l]))
+						Manifold m;
+						if (mCollisionLayers[i][k]->CheckCollision(mCollisionLayers[j][l], m))
 						{
 							
 							//Run collision thing. might need to put this elsewhere tho
+							//printf("Name of the first object %s - name of second %s \n", m.A->Parent()->Name().c_str(), m.B->Parent()->Name().c_str());
+							//printf("Value of the penetration - %F\n", m.penetration);
+							printf("Normal direction - x: %F, y: %F \n", m.normal.x, m.normal.y);
 							mCollisionLayers[i][k]->OnCollisionEnter(mCollisionLayers[j][l]);
 							mCollisionLayers[j][l]->OnCollisionEnter(mCollisionLayers[i][k]);
-							ResolveCollision(mCollisionLayers[i][k], mCollisionLayers[j][l]);
+							//ResolveCollision(mCollisionLayers[i][k], mCollisionLayers[j][l]);
 						}
 					}
 				}

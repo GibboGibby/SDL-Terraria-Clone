@@ -32,9 +32,11 @@ public:
 		bool isKinematic = true;
 		bool isStatic = false;
 		bool useGravity = true;
-		float restitution;
+		float restitution = 1.0f;
 		Vector2 velocity;
 	};
+
+	
 
 	RigidBody rb;
 
@@ -43,7 +45,9 @@ public:
 
 	unsigned long GetID();
 
-	bool CheckCollision(PhysicsEntity* other);
+	bool CheckCollision(PhysicsEntity* other, Manifold& m);
+
+	//bool CheckCollision(PhysicsEntity* other);
 
 	virtual void Hit(PhysicsEntity* other);
 
