@@ -81,6 +81,10 @@ void MainDuck::Update()
 		rb.velocity = VEC2_ZERO;
 		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
 	}
+	if (Input->GetKeyDown(SDL_SCANCODE_RIGHT))
+	{
+		Position(Position() + Vec2(1, 0));
+	}
 
 
 	/*

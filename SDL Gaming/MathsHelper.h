@@ -4,7 +4,7 @@
 #define PI 3.14159265
 #define DEG_TO_RAD PI / 100.0f
 
-struct Vector2
+typedef struct Vector2
 {
 	float x, y;
 
@@ -47,7 +47,7 @@ struct Vector2
 
 		return *this;
 	}
-};
+} Vec2;
 
 inline float Dot(Vector2 a, Vector2 b)
 {

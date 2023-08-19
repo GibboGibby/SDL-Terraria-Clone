@@ -7,8 +7,6 @@
 #define Input InputManager::Instance()
 #define deltaTime Timer::Instance()->DeltaTime()
 
-
-
 class GameObject 
 {
 public:
