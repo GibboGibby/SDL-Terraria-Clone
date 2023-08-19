@@ -19,6 +19,7 @@ public:
 	struct RigidBody
 	{
 		float angularDrag;
+		float inv_mass;
 		float angularVelocity;
 		bool automaticCenterOfMass;
 		//bool automaticInertiaTensor;

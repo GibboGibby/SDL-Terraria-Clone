@@ -29,5 +29,10 @@ public:
 		GameObject* obj2 = AddObject(new MainDuck(true));
 		obj2->Position(Vector2(Graphics::SCREEN_WIDTH + 200, Graphics::SCREEN_HEIGHT + 200));
 		obj2->Name("Main Character Enemy");
+		static_cast<PhysicsEntity*>(obj2)->rb.isStatic = true;
+
+		GameObject* obj3 = AddObject(new MainDuck(true));
+		obj3->Position(Vector2(Graphics::SCREEN_WIDTH - 200, Graphics::SCREEN_HEIGHT - 200));
+		obj3->Name("Main Character Other Enemy");
 	}
 };

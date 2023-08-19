@@ -3,6 +3,7 @@
 #include "BoxCollider.h"
 #include "Sprite.h"
 #include "PhysicsManager.h"
+#include "SceneManager.h"
 
 
 class MainDuck : public PhysicsEntity

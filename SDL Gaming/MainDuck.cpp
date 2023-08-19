@@ -15,7 +15,6 @@ MainDuck::MainDuck(bool enemy)
 	AddCollider(new BoxCollider(sprite->ScaledDimensions()));
 
 	mId = PhysicsManager::Instance()->RegisterEntity(this, enemy ? PhysicsManager::CollisionLayers::Enemy : PhysicsManager::CollisionLayers::Friendly);
-	
 }
 
 MainDuck::~MainDuck()
@@ -54,7 +53,7 @@ void MainDuck::Update()
 {
 	//sprite->Update();
 
-	if (Name() == "Main Character Enemy")
+	if (Name() != "Main Character")
 		return;
 
 	if (Input->GetKey(SDL_SCANCODE_D))
@@ -75,6 +74,12 @@ void MainDuck::Update()
 	if (Input->GetKey(SDL_SCANCODE_S))
 	{
 		rb.velocity += Vector2(0.0f, 5.0f);
+	}
+
+	if (Input->GetMouseButton(Input->LEFT))
+	{
+		rb.velocity = VEC2_ZERO;
+		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
 	}
 
 

@@ -46,9 +46,11 @@ private:
 
 	void ResolveCollision(PhysicsEntity* entity1, AABB entity1aabb, PhysicsEntity* entity2, AABB entity2aabb);
 	void ResolveCollision(BoxCollider* col1, BoxCollider* col2);
-	
+	void ResolveCollision(const Manifold& m);
 	void ResolveCollision(CircleCollider* col1, CircleCollider* col2);
 	void ResolveCollision(PhysicsEntity* entity1, PhysicsEntity* entity2);
+
+	void PositionalCorrection(const Manifold& m);
 
 public:
 

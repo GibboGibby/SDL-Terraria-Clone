@@ -14,7 +14,7 @@ inline bool AABBvsAABBCollision(Manifold& m)
 {
 	BoxCollider* A = static_cast<BoxCollider*>(m.A);
 	BoxCollider* B = static_cast<BoxCollider*>(m.B);
-
+	
 	Vector2 n = B->Position() - A->Position();
 	AABB abox = A->GetAABB();
 	AABB bbox = B->GetAABB();
@@ -26,28 +26,28 @@ inline bool AABBvsAABBCollision(Manifold& m)
 
 	if (x_overlap > 0)
 	{
-		float a_extent = (abox.max.y - abox.min.y) / 2;
-		float b_extent = (bbox.max.y - bbox.min.y) / 2;
+		float ya_extent = (abox.max.y - abox.min.y) / 2;
+		float yb_extent = (bbox.max.y - bbox.min.y) / 2;
 
-		float y_overlap = a_extent + b_extent - abs(n.y);
-
+		float y_overlap = ya_extent + yb_extent - abs(n.y);
+		
 		if (y_overlap > 0)
 		{
-			if (x_overlap > y_overlap)
+			if (x_overlap < y_overlap)
 			{
 				if (n.x < 0)
-					m.normal = Vector2(-1, 0);
-				else
 					m.normal = Vector2(1, 0);
+				else
+					m.normal = Vector2(-1, 0);
 				m.penetration = x_overlap;
 				return true;
 			}
 			else
 			{
 				if (n.y < 0)
-					m.normal = Vector2(0, -1);
-				else
 					m.normal = Vector2(0, 1);
+				else
+					m.normal = Vector2(0, -1);
 				m.penetration = y_overlap;
 				return true;
 			}
