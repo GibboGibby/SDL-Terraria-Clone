@@ -10,6 +10,14 @@ struct Manifold
 	Vector2 normal;
 };
 
+enum ForceMode
+{
+	Force,
+	Acceleration,
+	Impulse,
+	VelocityChange
+};
+
 inline bool AABBvsAABBCollision(Manifold& m)
 {
 	BoxCollider* A = static_cast<BoxCollider*>(m.A);

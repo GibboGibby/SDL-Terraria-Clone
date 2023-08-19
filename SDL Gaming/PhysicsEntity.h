@@ -2,6 +2,8 @@
 #include "PhysicsHelper.h"
 #include <vector>
 
+
+
 class PhysicsEntity : public GameObject
 {
 protected:
@@ -35,6 +37,7 @@ public:
 		bool useGravity = true;
 		float restitution = 1.0f;
 		Vector2 velocity;
+		Vector2 acceleration;
 	};
 
 	
@@ -54,7 +57,7 @@ public:
 
 	virtual void OnCollisionEnter(PhysicsEntity* other);
 
-	
+	void AddForce(Vector2 force, ForceMode mode);
 
 	virtual void Awake();
 	virtual void Start();

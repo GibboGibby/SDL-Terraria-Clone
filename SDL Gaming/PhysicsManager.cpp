@@ -63,21 +63,6 @@ PhysicsManager::~PhysicsManager()
 	}
 }
 
-void PhysicsManager::ResolveCollision(PhysicsEntity* entity1, AABB entity1aabb, PhysicsEntity* entity2, AABB entity2aabb)
-{
-	Vector2 resultantVelocity = entity1->rb.velocity - entity2->rb.velocity;
-
-	
-
-	Vector2 impulseNormal;
-
-	float velAlongNormal = Dot(resultantVelocity, entity1->rb.velocity.Normalized());
-
-	if (velAlongNormal > 0) return;
-
-	//float e = min(entity1->rb.)
-}
-
 void PhysicsManager::ResolveCollision(const Manifold& m)
 {
 	PhysicsEntity* A = static_cast<PhysicsEntity*>(m.A->Parent());
@@ -107,39 +92,22 @@ void PhysicsManager::ResolveCollision(const Manifold& m)
 		A->rb.velocity -= A->rb.inv_mass * impulse;
 	if (!B->rb.isStatic)
 		B->rb.velocity += B->rb.inv_mass * impulse;
+
+	PositionalCorrection(m);
 }
 
 void PhysicsManager::PositionalCorrection(const Manifold& m)
 {
+	PhysicsEntity* A = static_cast<PhysicsEntity*>(m.A->Parent());
+	PhysicsEntity* B = static_cast<PhysicsEntity*>(m.B->Parent());
 
-}
-
-
-void PhysicsManager::ResolveCollision(PhysicsEntity* entity1, PhysicsEntity* entity2)
-{
-	//PhysicsEntity* entity1 = static_cast<PhysicsEntity*>(col1->Parent());
-	//PhysicsEntity* entity2 = static_cast<PhysicsEntity*>(col2->Parent());
-
-	Vector2 resultantVector = entity2->rb.velocity - entity1->rb.velocity;
-	Vector2	normal = -resultantVector.Normalized();
-
-	float vecAlongNormal = Dot(resultantVector, normal);
-	if (vecAlongNormal > 0) return;
-
-	float e = min(entity1->rb.restitution, entity2->rb.restitution);
-
-	float j = -(1 + e) * vecAlongNormal;
-	j /= 1 / entity1->rb.mass + 1 / entity2->rb.mass;
-
-	//Apply impulses
-
-	Vector2 impulse = j * normal;
-	float massSum = entity1->rb.mass + entity2->rb.mass;
-	float ratio = entity1->rb.mass / massSum;
-
-	entity1->rb.velocity -= ratio * impulse * 0.1f;
-	ratio = entity2->rb.mass / massSum;
-	entity2->rb.velocity += ratio * impulse * 0.1f;
+	const float percent = 0.2;
+	const float slop = 0.01;
+	Vector2 correction = max(m.penetration - slop, 0.0f) / (A->rb.inv_mass + B->rb.inv_mass) * percent * -m.normal;
+	if (!A->rb.isStatic)
+		A->Position(A->Position() - A->rb.inv_mass * correction);
+	if (!B->rb.isStatic)
+		B->Position(B->Position() - B->rb.inv_mass * correction);
 }
 
 void PhysicsManager::CollisionUpdate()
@@ -172,6 +140,11 @@ void PhysicsManager::CollisionUpdate()
 			}
 		}
 	}
+}
+
+void PhysicsManager::ApplyForces(PhysicsEntity* entity)
+{
+
 }
 
 void PhysicsManager::PhysicsUpdate()
