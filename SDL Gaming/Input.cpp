@@ -28,6 +28,7 @@ InputManager::InputManager()
 	mKeyboardState = SDL_GetKeyboardState(&mKeyLength);
 	mPrevKeyboardState = new Uint8[mKeyLength];
 	memcpy(mPrevKeyboardState, mKeyboardState, mKeyLength);
+	mouseWheelScrolled = false;
 }
 
 InputManager::~InputManager()
@@ -104,7 +105,64 @@ void InputManager::UpdatePrevInput()
 	mPrevMouseState = mMouseState;
 }
 
+void InputManager::SetMouseWheel(const Sint32& x, const Sint32& y)
+{
+	mMouseWheelX = x;
+	mMouseWheelY = y;
+	if (mMouseWheelX != 0 || mMouseWheelY != 0)
+	{
+		mouseWheelScrolled = true;
+		printf("Mouse wheel x - %i and mouse wheel y - %i\n", mMouseWheelX, mMouseWheelY);
+	}
+	else
+		mouseWheelScrolled = false;
+}
+/*
+void InputManager::SetMouseWheel(int x, int y)
+{
+	mMouseWheelX = x;
+	mMouseWheelY = y;
+}
+*/
+
+void InputManager::ResetMouseWheel()
+{
+	//printf("Reset of mouse wheel is occuring\n");
+	//mMouseWheelX = 0;
+	//mMouseWheelY = 0;
+	//mouseWheelScrolled = false;
+}
+
+void InputManager::UpdateMouseWheel()
+{
+
+}
+
+
+
+int InputManager::MouseWheelDelta(MOUSE_WHEEL mouseWheel)
+{
+	switch (mouseWheel)
+	{
+	case InputManager::MWHEEL_UP_DOWN:
+		return mMouseWheelY;
+		break;
+	case InputManager::MWHEEL_LEFT_RIGHT:
+		return mMouseWheelX;
+		break;
+	default:
+		break;
+	}
+	return 0;
+}
+
+bool InputManager::GetMouseScrolled()
+{
+	return mouseWheelScrolled;
+}
+
 void InputManager::Update() 
 {
 	mMouseState = SDL_GetMouseState(&mMouseX, &mMouseY);
+
 }

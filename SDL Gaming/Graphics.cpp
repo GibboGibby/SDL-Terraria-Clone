@@ -1,5 +1,6 @@
 #include "Graphics.h"
 #include "GameManager.h"
+#include "SceneManager.h"
 
 Graphics* Graphics::instance = NULL;
 
@@ -66,6 +67,8 @@ bool Graphics::Init()
 		printf("Window creation error :%s\n", SDL_GetError());
 		return false;
 	}
+	//SDL_GL_SetSwapInterval(0);
+	//SDL_HINT_RENDER_VSYNC = 0;
 	SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 0x00, 0xFF);
 
 	int flags = IMG_INIT_PNG;
@@ -118,7 +121,7 @@ void Graphics::DrawTexture(SDL_Texture* tex,SDL_Rect* clip, SDL_Rect* rend, doub
 {
 	if ((rend->x < Graphics::SCREEN_WIDTH + rend->w + camOffset && rend->x + (rend->w * 2.f) > 0.0f - camOffset) && (rend->y < Graphics::SCREEN_HEIGHT + (rend->h * 2.0f) + camOffset && rend->y + (rend->h * 2.0f) > 0.0f - camOffset))
 	{
-		
+
 		SDL_RenderCopyEx(mRenderer, tex, clip, rend, ang, center, flip);
 #if _DEBUG
 		if (GameManager::Instance()->isDebug)

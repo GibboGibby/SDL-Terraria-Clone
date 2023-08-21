@@ -107,7 +107,11 @@ void GameManager::Run()
 {
 	while (!mQuit)
 	{
+		Sint32 mouseWheelX = 0;
+		Sint32 mouseWheelY = 0;
 		mTimer->Update();
+		if (mTimer->DeltaTime() >= 1.0f / FRAME_RATE)
+		{
 		while (SDL_PollEvent(&mEvent) != 0)
 		{
 			switch (mEvent.type)
@@ -115,19 +119,30 @@ void GameManager::Run()
 			case SDL_QUIT:
 				mQuit = true;
 				break;
+			case SDL_MOUSEWHEEL:
+				mouseWheelX = mEvent.wheel.x;
+				mouseWheelY = mEvent.wheel.y;
+				//printf("mouse wheel x - %i and y - %i\n", mouseWheelX, mouseWheelY);
+				//mInputMgr->SetMouseWheel(mEvent.wheel.x, mEvent.wheel.y);
+				//mInputMgr->SetMouseWheel(mouseWheelX, mouseWheelY);
+				break;
 			default:
 				break;
 			}
 
-			
 		}
-
+			//printf("before timer values of moueswheelx - %i and moueswheely - %i\n", mouseWheelX, mouseWheelY);
 		
-		if (mTimer->DeltaTime() >= 1.0f / FRAME_RATE)
-		{
+		
 			mGraphics->ClearBackBuffer();
 
+			//printf("Mouse Wheel event recognised with values x = %i and y = %i\n", mouseWheelX, mouseWheelY);
+			//std::cout << "This is the x and y values: " << mouseWheelX << mouseWheelY << std::endl;
 			mInputMgr->Update();
+			mInputMgr->SetMouseWheel(mouseWheelX, mouseWheelY);
+			//mInputMgr->UpdateMouseWheel();
+			if (mInputMgr->GetMouseScrolled())
+				printf("Mouse has been scrolled\n");
 			
 #if _DEBUG
 			if (mInputMgr->GetKeyDown(SDL_SCANCODE_1))
@@ -222,9 +237,12 @@ void GameManager::Run()
 
 			
 			mInputMgr->UpdatePrevInput();
+			//mInputMgr->ResetMouseWheel();
 
 			mTimer->Reset();
 		}
+
+		//mInputMgr->ResetMouseWheel();
 
 		if (mTimer->PhysicsDeltaTime() >= 1.0f / PHYSICS_FRAME_RATE)
 		{
@@ -233,6 +251,9 @@ void GameManager::Run()
 			mTimer->ResetPhysics();
 		}
 
-
+		// There is a delay here however I am not sure if it can be stopped
+		//SDL_Delay(7);
+		
+		//mInputMgr->SetMouseWheel(0, 0);
 	}
 }

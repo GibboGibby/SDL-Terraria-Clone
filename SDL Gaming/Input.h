@@ -15,10 +15,16 @@ private:
 	int mMouseX;
 	int mMouseY;
 
+	Sint32 mMouseWheelX;
+	Sint32 mMouseWheelY;
+
+	bool mouseWheelScrolled;
+
 public:
 
 	enum MOUSE_BUTTON {LEFT = 0, RIGHT, MIDDLE, BACK, FORWARD};
-
+	enum MOUSE_WHEEL {MWHEEL_UP_DOWN = 0, MWHEEL_LEFT_RIGHT};
+	
 	InputManager();
 	~InputManager();
 	static InputManager* Instance();
@@ -26,6 +32,13 @@ public:
 
 	void Update();
 	void UpdatePrevInput();
+
+	void SetMouseWheel(const Sint32& x, const Sint32& y);
+	void UpdateMouseWheel();
+	void ResetMouseWheel();
+
+	int MouseWheelDelta(MOUSE_WHEEL mouseWheel = MWHEEL_UP_DOWN);
+	bool GetMouseScrolled();
 
 	bool GetKeyDown(SDL_Scancode scanCode);
 	bool GetKey(SDL_Scancode scanCode);
@@ -38,5 +51,6 @@ public:
 	Uint32 MouseMask(MOUSE_BUTTON button);
 
 	Vector2 GetMousePos();
+
 
 };

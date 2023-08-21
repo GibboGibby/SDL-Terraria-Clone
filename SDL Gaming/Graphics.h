@@ -7,6 +7,7 @@
 #include <string>
 #include "MathsHelper.h"
 
+
 class Graphics {
 public:
 	static const int SCREEN_WIDTH = 1920;

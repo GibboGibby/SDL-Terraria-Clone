@@ -19,6 +19,10 @@ public:
 	GameObject* AddObject(GameObject* obj);
 	Camera* GetActiveCamera();
 
+	Vector2 GetCameraBounds();
+	float GetCameraWidth();
+	float GetGameraHeight();
+
 
 	void ClearScene();
 	
@@ -32,6 +36,8 @@ public:
 	Vector2 WorldToScreenPosition(Vector2 pos);
 
 	Vector2 ScreenToWorldPosition(Vector2 pos);
+
+	void ScaleObjects(float scalar);
 
 	Scene();
 	~Scene();

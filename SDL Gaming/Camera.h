@@ -6,8 +6,10 @@
 class Camera : public GameObject
 {
 private:
-	int viewHalfHeight;
-	int viewHalfWidth;
+	Vector2 cameraBounds;
+
+	float cameraScale = 1.0f;
+	float tempVal = 1.0f;
 
 	GameObject* character;
 public:
@@ -17,6 +19,9 @@ public:
 	virtual void Start();
 	virtual void Update();
 	virtual void Render();
+
+	Vector2 GetBounds();
+	float CameraScale();
 
 	void SetMC(GameObject* obj)
 	{

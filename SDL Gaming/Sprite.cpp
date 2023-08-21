@@ -35,8 +35,8 @@ Sprite::Sprite(std::string file, int x, int y, int w, int h, int custX, int cust
 	mClipRect.w = mWidth;
 	mClipRect.h = mHeight;
 
-	mAnimations["idle"] = new Animation(55, 1, 1.15f, 3, LOOP, VERTICAL);
-	mAnimations["walking"] = new Animation(1, 1, 0.6f, 4, LOOP, HORIZONTAL);
+	//mAnimations["idle"] = new Animation(55, 1, 1.15f, 3, LOOP, VERTICAL);
+	//mAnimations["walking"] = new Animation(1, 1, 0.6f, 4, LOOP, HORIZONTAL);
 
 	if (custX != 0 || custY != 0)
 	{
@@ -106,14 +106,14 @@ void Sprite::Render()
 
 	//int newX = (pos.x + mWidth / 2) - (mWidth / 2 * mRenderScale);
 	//int newY = (pos.y + mHeight / 2) - (mHeight / 2 * mRenderScale);
-	mRenderRect = { 0, 0, (int)(mWidth * scale.x), (int)(mHeight * scale.y) };
+	mRenderRect = { 0, 0, (int)(mWidth * scale.x * CurrentScene->GetActiveCamera()->CameraScale()), (int)(mHeight * scale.y * CurrentScene->GetActiveCamera()->CameraScale()) };
 
 
 	//mRenderRect.x -= mWidth / 2;
 	//mRenderRect.y += mHeight / 2;
 	
-	mRenderRect.x = pos.x - (int)(mWidth * scale.x) / 2;
-	mRenderRect.y = pos.y - (int)(mHeight * scale.y) / 2;
+	mRenderRect.x = pos.x - (int)(mWidth * scale.x * CurrentScene->GetActiveCamera()->CameraScale()) / 2;
+	mRenderRect.y = pos.y - (int)(mHeight * scale.y * CurrentScene->GetActiveCamera()->CameraScale()) / 2;
 
 	//mRenderRect.x = pos.x;
 	//mRenderRect.y = pos.y;
