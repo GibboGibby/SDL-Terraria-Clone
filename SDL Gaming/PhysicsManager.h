@@ -3,6 +3,7 @@
 #include "PhysicsEntity.h"
 #include "Timer.h"
 #include <bitset>
+#define PIXELS_PER_METRE 8
 
 class PhysicsManager
 {
@@ -10,11 +11,11 @@ public:
 
 	struct PhysicsSettings
 	{
-		float gravity = -9.8f;
+		float gravity = -20.f;
 	};
 
 	
-
+	PhysicsSettings physicsSettings;
 
 	enum class CollisionLayers
 	{

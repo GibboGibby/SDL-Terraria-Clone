@@ -37,7 +37,7 @@ public:
 		bool useGravity = true;
 		float restitution = 1.0f;
 		Vector2 velocity;
-		Vector2 acceleration;
+		Vector2 acceleration = VEC2_ZERO;
 	};
 
 	
@@ -58,6 +58,7 @@ public:
 	virtual void OnCollisionEnter(PhysicsEntity* other);
 
 	void AddForce(Vector2 force, ForceMode mode);
+	void AddForce(Vector2 velocity);
 
 	virtual void Awake();
 	virtual void Start();

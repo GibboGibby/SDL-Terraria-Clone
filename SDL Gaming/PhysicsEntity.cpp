@@ -90,6 +90,27 @@ void PhysicsEntity::OnCollisionEnter(PhysicsEntity* other)
 
 }
 
+void PhysicsEntity::AddForce(Vector2 force, ForceMode mode)
+{
+	switch (mode)
+	{
+	case Force:
+		break;
+	case Acceleration:
+		break;
+	case Impulse:
+		break;
+	case VelocityChange:
+		break;
+	}
+}
+
+void PhysicsEntity::AddForce(Vector2 velocity)
+{
+	velocity.y = -velocity.y;
+	rb.velocity += velocity;
+}
+
 
 void PhysicsEntity::Render()
 {

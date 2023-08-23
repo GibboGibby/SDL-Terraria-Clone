@@ -46,6 +46,8 @@ Graphics::~Graphics()
 	SDL_Quit();
 }
 
+
+
 bool Graphics::Init()
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
@@ -181,4 +183,15 @@ int Graphics::SetViewport(const SDL_Rect* rect = NULL)
 void Graphics::Render()
 {
 	SDL_RenderPresent(mRenderer);
+}
+
+void Graphics::RotateViewport()
+{
+	
+}
+
+void Graphics::ScaleRenderer(float scaleX, float scaleY)
+{
+	//SDL_RenderSetLogicalSize(mRenderer, Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2);
+	//SDL_RenderSetScale(mRenderer, scaleX, scaleY);
 }

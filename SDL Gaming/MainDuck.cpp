@@ -58,27 +58,33 @@ void MainDuck::Update()
 
 	if (Input->GetKey(SDL_SCANCODE_D))
 	{
-		rb.velocity += Vector2(5.0f, 0.0f);
+		rb.velocity += Vector2(5.0f, 0.0f) * deltaTime;
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_A))
 	{
-		rb.velocity += Vector2(-5.0f, 0.0f);
+		rb.velocity += Vector2(-5.0f, 0.0f) * deltaTime;
 	}
 
-	if (Input->GetKey(SDL_SCANCODE_W))
+	if (Input->GetKeyDown(SDL_SCANCODE_W))
 	{
-		rb.velocity += Vector2(0.0f, -5.0f);
+		//rb.velocity += Vector2(0.0f, -5.0f) * deltaTime;
+		rb.velocity.y = 0;
+		AddForce(Vec2(0.0f, 10.f));
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_S))
 	{
-		rb.velocity += Vector2(0.0f, 5.0f);
+		rb.velocity += Vector2(0.0f, 5.0f) * deltaTime;
 	}
 
 	if (Input->GetMouseButton(Input->LEFT))
 	{
 		rb.velocity = VEC2_ZERO;
+		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
+	}
+	if (Input->GetMouseButton(Input->RIGHT))
+	{
 		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
 	}
 	if (Input->GetKeyDown(SDL_SCANCODE_RIGHT))

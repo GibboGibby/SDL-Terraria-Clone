@@ -5,11 +5,21 @@
 
 class Camera : public GameObject
 {
+public:
+	enum CameraMultipliers {
+		OneX = 1,
+		TwoX,
+		ThreeX,
+		FourX
+	};
+
 private:
 	Vector2 cameraBounds;
 
 	float cameraScale = 1.0f;
 	float tempVal = 1.0f;
+
+	CameraMultipliers cameraMultiplier;
 
 	GameObject* character;
 public:
@@ -19,6 +29,7 @@ public:
 	virtual void Start();
 	virtual void Update();
 	virtual void Render();
+
 
 	Vector2 GetBounds();
 	float CameraScale();

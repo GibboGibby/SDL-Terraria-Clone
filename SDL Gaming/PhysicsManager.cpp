@@ -101,7 +101,7 @@ void PhysicsManager::PositionalCorrection(const Manifold& m)
 	PhysicsEntity* A = static_cast<PhysicsEntity*>(m.A->Parent());
 	PhysicsEntity* B = static_cast<PhysicsEntity*>(m.B->Parent());
 
-	const float percent = 0.2;
+	const float percent = 0.9;
 	const float slop = 0.01;
 	Vector2 correction = max(m.penetration - slop, 0.0f) / (A->rb.inv_mass + B->rb.inv_mass) * percent * -m.normal;
 	if (!A->rb.isStatic)
@@ -153,7 +153,12 @@ void PhysicsManager::PhysicsUpdate()
 	{
 		for (unsigned int j = 0; j < mCollisionLayers[i].size(); j++)
 		{
-			mCollisionLayers[i][j]->Position(mCollisionLayers[i][j]->Position() + (mCollisionLayers[i][j]->rb.velocity * Timer::Instance()->PhysicsDeltaTime()));
+			if (mCollisionLayers[i][j]->rb.isStatic) continue;
+			//mCollisionLayers[i][j]->rb.acceleration = Vec2(0, -physicsSettings.gravity);
+			//Vector2 newVelocity = mCollisionLayers[i][j]->rb.velocity;
+			//newVelocity += mCollisionLayers[i][j]->rb.acceleration * Timer::Instance()->PhysicsDeltaTime();
+			mCollisionLayers[i][j]->rb.velocity += Vec2(0, -physicsSettings.gravity * Timer::Instance()->PhysicsDeltaTime());
+			mCollisionLayers[i][j]->Position(mCollisionLayers[i][j]->Position() + mCollisionLayers[i][j]->rb.velocity);
 		}
 	}
 }

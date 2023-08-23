@@ -120,7 +120,7 @@ void Scene::ScaleObjects(float scalar)
 	for (GameObject* obj : gameObjects)
 	{
 		obj->Position(obj->Position() * scalar);
-		obj->Scale(obj->Scale() * scalar);
+		//obj->Position(obj->Position() * scalar);
 	}
 }
 

@@ -37,6 +37,9 @@ public:
 
 	void ClearBackBuffer();
 
+	void RotateViewport();
+	void ScaleRenderer(float scaleX, float scaleY);
+
 	void DrawTexture(SDL_Texture* tex, SDL_Rect* clip = NULL, SDL_Rect* rend = NULL, double angle = 0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	//void DrawTexture(SDL_Texture* tex,SDL_Rect* clip = NULL, SDL_Rect* rend = NULL);
 	void DrawObjectGizmo(Vector2 screenPos);

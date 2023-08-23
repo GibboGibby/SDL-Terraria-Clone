@@ -112,7 +112,7 @@ void InputManager::SetMouseWheel(const Sint32& x, const Sint32& y)
 	if (mMouseWheelX != 0 || mMouseWheelY != 0)
 	{
 		mouseWheelScrolled = true;
-		printf("Mouse wheel x - %i and mouse wheel y - %i\n", mMouseWheelX, mMouseWheelY);
+		
 	}
 	else
 		mouseWheelScrolled = false;
