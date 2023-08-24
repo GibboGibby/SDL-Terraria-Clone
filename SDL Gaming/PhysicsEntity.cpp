@@ -80,6 +80,22 @@ bool PhysicsEntity::CheckCollision(PhysicsEntity* other, Manifold& m)
 	}
 }
 
+bool PhysicsEntity::CheckCollision(Collider* other, Manifold& m)
+{
+	//return ColliderColliderCheck(mBroadPhaseCollider, other->mBroadPhaseCollider);
+	if (mColliders.size() != 0)
+	{
+		for (Collider* collider : mColliders)
+		{
+			//ColliderColliderCheck(collider, other->mColliders[0]);
+				//Manifold* m = new Manifold();
+			m.A = collider;
+			m.B = other;
+			return ColliderColliderCheck(m);
+		}
+	}
+}
+
 void PhysicsEntity::Hit(PhysicsEntity* other)
 {
 	

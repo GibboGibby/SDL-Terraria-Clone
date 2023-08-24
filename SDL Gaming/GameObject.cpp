@@ -139,6 +139,10 @@ void GameObject::Render()
 
 }
 
+void GameObject::LateUpdate()
+{
+}
+
 void GameObject::Translate(Vector2 vec)
 {
 	mPos += vec;
@@ -147,4 +151,8 @@ void GameObject::Translate(Vector2 vec)
 void GameObject::UpdateTexture()
 {
 
+}
+
+void GameObject::FixedUpdate()
+{
 }

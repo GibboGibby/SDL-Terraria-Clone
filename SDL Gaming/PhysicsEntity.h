@@ -49,6 +49,7 @@ public:
 	unsigned long GetID();
 
 	bool CheckCollision(PhysicsEntity* other, Manifold& m);
+	bool CheckCollision(Collider* other, Manifold& m);
 
 	//bool CheckCollision(PhysicsEntity* other);
 

@@ -1,4 +1,5 @@
 #include "Duck.h"
+#include "ExtraPhysics.h"
 
 
 MainDuck::MainDuck(bool enemy)
@@ -7,6 +8,7 @@ MainDuck::MainDuck(bool enemy)
 	sprite->AddAnimation("idle", new Animation(55, 1, 1.15f, 3, LOOP, VERTICAL));
 	sprite->AddAnimation("walking", new Animation(1, 1, 0.6f, 4, LOOP, HORIZONTAL));
 	sprite->ChangeAnimation("idle");
+
 
 	sprite->Name("Main Character" + enemy ? " - ENEMY" : "");
 	sprite->Parent(this);
@@ -57,6 +59,8 @@ void MainDuck::Update()
 
 	if (Name() != "Main Character")
 		return;
+
+	
 
 	if (Input->GetKey(SDL_SCANCODE_D))
 	{
@@ -206,5 +210,15 @@ void MainDuck::Render()
 	//if (Active())
 	sprite->Render();
 	PhysicsEntity::Render();
+
+}
+
+void MainDuck::FixedUpdate()
+{
+	bool ray = Physics::Raycast(Position(), -VEC2_UP, 100);
+}
+
+void MainDuck::LateUpdate()
+{
 
 }

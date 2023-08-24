@@ -145,6 +145,7 @@
     <ClCompile Include="MainDuck.cpp" />
     <ClCompile Include="PhysicsEntity.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PointCollider.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Duck.h" />
+    <ClInclude Include="ExtraPhysics.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="PhysicsEntity.h" />
     <ClInclude Include="PhysicsHelper.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PointCollider.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Scenes.h" />

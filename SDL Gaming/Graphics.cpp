@@ -195,3 +195,24 @@ void Graphics::ScaleRenderer(float scaleX, float scaleY)
 	//SDL_RenderSetLogicalSize(mRenderer, Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2);
 	//SDL_RenderSetScale(mRenderer, scaleX, scaleY);
 }
+
+void Graphics::DrawPoint(Vector2 point)
+{
+	SDL_SetRenderDrawColor(mRenderer, 255, 192, 203, 255);
+	SDL_RenderDrawPoint(mRenderer, point.x, point.y);
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
+}
+
+void Graphics::DrawLine(Vector2 start, Vector2 end)
+{
+	SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
+	SDL_RenderDrawLine(mRenderer, start.x, start.y, end.x, end.y);
+	SDL_Rect* rect = new SDL_Rect();
+	rect->x = 100;
+	rect->y = 100;
+	rect->w = 300;
+	rect->h = 300;
+	SDL_RenderDrawRect(mRenderer, rect);
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
+
+}

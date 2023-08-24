@@ -23,6 +23,7 @@ public:
 		FriendlyProjectiles,
 		Enemy,
 		EnemyProjectiles,
+		Environment,
 		//
 		MaxLayers
 	};
@@ -33,7 +34,8 @@ public:
 		Friendly = 0x01,
 		FriendlyProjectiels = 0x02,
 		Enemy = 0x04,
-		EnemyProjectiles = 0x08
+		EnemyProjectiles = 0x08,
+		Environment = 0x16
 	};
 
 private:
@@ -64,6 +66,7 @@ public:
 
 	void CollisionUpdate();
 	void PhysicsUpdate();
+	bool CollisionCheck(Collider* col);
 
 private:
 

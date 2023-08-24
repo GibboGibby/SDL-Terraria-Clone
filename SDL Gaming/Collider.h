@@ -6,7 +6,8 @@ public:
 	enum class ColliderType
 	{
 		Box,
-		Circle
+		Circle,
+		Point
 	};
 
 protected:

@@ -44,6 +44,9 @@ public:
 	//void DrawTexture(SDL_Texture* tex,SDL_Rect* clip = NULL, SDL_Rect* rend = NULL);
 	void DrawObjectGizmo(Vector2 screenPos);
 
+	void DrawPoint(Vector2 point);
+	void DrawLine(Vector2 start, Vector2 end);
+
 	void Render();
 
 

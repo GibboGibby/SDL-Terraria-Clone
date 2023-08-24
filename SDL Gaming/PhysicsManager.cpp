@@ -181,3 +181,20 @@ void PhysicsManager::PhysicsUpdate()
 		}
 	}
 }
+
+bool PhysicsManager::CollisionCheck(Collider* col)
+{
+	for (unsigned int i = 0; i < static_cast<unsigned int>(CollisionLayers::MaxLayers); i++)
+	{
+		for (unsigned int j = 0; j < mCollisionLayers[i].size(); j++)
+		{
+			Manifold m;
+			//Check for collision
+			if (mCollisionLayers[i][j]->CheckCollision(col, m))
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}

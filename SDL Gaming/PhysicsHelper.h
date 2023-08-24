@@ -1,6 +1,7 @@
 #pragma once
 #include "CircleCollider.h"
 #include "BoxCollider.h"
+#include "PointCollider.h"
 
 struct Manifold
 {
@@ -80,6 +81,18 @@ inline bool BoxBoxCollision(BoxCollider* c1, BoxCollider* c2)
 	return true;
 }
 
+inline bool BoxPointCollision(BoxCollider* c1, PointCollider* c2)
+{
+	AABB aabb = c1->GetAABB();
+	return (c2->GetFurthestPoint().x > aabb.min.x && c2->GetFurthestPoint().x < aabb.max.x &&
+		c2->GetFurthestPoint().y > aabb.min.y && c2->GetFurthestPoint().y < aabb.max.y);
+}
+
+inline bool PointBoxCollision(PointCollider* c1, BoxCollider* c2)
+{
+	return BoxPointCollision(c2, c1);
+}
+
 inline bool ColliderColliderCheck(Collider* c1, Collider* c2)
 {
 	if (c1->GetType() == Collider::ColliderType::Circle && c2->GetType() == Collider::ColliderType::Circle)
@@ -99,8 +112,13 @@ inline bool ColliderColliderCheck(Manifold& m)
 		return AABBvsAABBCollision(m);
 		//ResolveCollision(m);
 	}
-	else
-		return false;
+	if (m.A->GetType() == Collider::ColliderType::Box && m.B->GetType() == Collider::ColliderType::Point)
+		return BoxPointCollision(static_cast<BoxCollider*>(m.A), static_cast<PointCollider*>(m.B));
+	if (m.A->GetType() == Collider::ColliderType::Point && m.B->GetType() == Collider::ColliderType::Box)
+		return PointBoxCollision(static_cast<PointCollider*>(m.A), static_cast<BoxCollider*>(m.B));
+
+	
+	return false;
 }
 
 inline float DragForceMagnitude(Vector2 velocity, float drag)

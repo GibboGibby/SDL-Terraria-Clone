@@ -123,6 +123,9 @@
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files\Engine\Bases\UI</Filter>
     </ClCompile>
+    <ClCompile Include="PointCollider.cpp">
+      <Filter>Source Files\Engine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h">
@@ -199,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="UITextButton.h">
       <Filter>Header Files\Engine\Bases\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraPhysics.h">
+      <Filter>Header Files\Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="PointCollider.h">
+      <Filter>Header Files\Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

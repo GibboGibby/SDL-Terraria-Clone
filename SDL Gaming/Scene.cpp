@@ -70,7 +70,10 @@ void Scene::UpdateTextures()
 
 void Scene::PhysicsUpdate()
 {
-
+	for (GameObject* obj : gameObjects)
+	{
+		obj->FixedUpdate();
+	}
 }
 
 void Scene::Render()
