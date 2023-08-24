@@ -50,7 +50,7 @@ private:
 
 	void PositionalCorrection(const Manifold& m);
 
-	void ApplyForces(PhysicsEntity* entity);
+	void ApplyDrag(RigidBody& entity);
 
 public:
 

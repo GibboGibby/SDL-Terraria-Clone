@@ -12,6 +12,8 @@ MainDuck::MainDuck(bool enemy)
 	sprite->Parent(this);
 	sprite->Scale(Vector2(10.f, 10.f));
 
+	//rb.useGravity = false;
+
 	AddCollider(new BoxCollider(sprite->ScaledDimensions()));
 
 	mId = PhysicsManager::Instance()->RegisterEntity(this, enemy ? PhysicsManager::CollisionLayers::Enemy : PhysicsManager::CollisionLayers::Friendly);
@@ -58,12 +60,14 @@ void MainDuck::Update()
 
 	if (Input->GetKey(SDL_SCANCODE_D))
 	{
-		rb.velocity += Vector2(5.0f, 0.0f) * deltaTime;
+		//rb.velocity += Vector2(5.0f, 0.0f) * deltaTime;
+		//rb.velocity.x = 20.f;
+		rb.velocity.x += 15.f * deltaTime;
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_A))
 	{
-		rb.velocity += Vector2(-5.0f, 0.0f) * deltaTime;
+		rb.velocity += Vector2(-75.f, 0.0f) * deltaTime;
 	}
 
 	if (Input->GetKeyDown(SDL_SCANCODE_W))

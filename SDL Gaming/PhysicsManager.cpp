@@ -110,6 +110,19 @@ void PhysicsManager::PositionalCorrection(const Manifold& m)
 		B->Position(B->Position() - B->rb.inv_mass * correction);
 }
 
+void PhysicsManager::ApplyDrag(RigidBody& rb)
+{
+	float dragForceMagnitude = rb.velocity.MagnitudeSquared() * rb.drag;
+	float yDragForceMagnitude = rb.velocity.MagnitudeSquared() * 0.15f;
+	Vector2 dragForceVector = dragForceMagnitude * -rb.velocity.Normalized();
+	float dragForceY = yDragForceMagnitude * -rb.velocity.Normalized().y;
+	if (rb.velocity.x != 0)
+		rb.velocity.x += dragForceVector.x;
+	if (rb.velocity.y != 0)
+		rb.velocity.y += dragForceY / 100;
+	//rb.velocity += dragForceVector;
+}
+
 void PhysicsManager::CollisionUpdate()
 {
 	for (unsigned int i = 0; i < static_cast<unsigned int>(CollisionLayers::MaxLayers); i++)
@@ -142,10 +155,6 @@ void PhysicsManager::CollisionUpdate()
 	}
 }
 
-void PhysicsManager::ApplyForces(PhysicsEntity* entity)
-{
-
-}
 
 void PhysicsManager::PhysicsUpdate()
 {
@@ -154,11 +163,21 @@ void PhysicsManager::PhysicsUpdate()
 		for (unsigned int j = 0; j < mCollisionLayers[i].size(); j++)
 		{
 			if (mCollisionLayers[i][j]->rb.isStatic) continue;
-			//mCollisionLayers[i][j]->rb.acceleration = Vec2(0, -physicsSettings.gravity);
-			//Vector2 newVelocity = mCollisionLayers[i][j]->rb.velocity;
-			//newVelocity += mCollisionLayers[i][j]->rb.acceleration * Timer::Instance()->PhysicsDeltaTime();
-			mCollisionLayers[i][j]->rb.velocity += Vec2(0, -physicsSettings.gravity * Timer::Instance()->PhysicsDeltaTime());
+
+			// 
+			
 			mCollisionLayers[i][j]->Position(mCollisionLayers[i][j]->Position() + mCollisionLayers[i][j]->rb.velocity);
+			//mCollisionLayers[i][j]->rb.velocity += Vec2(0, -physicsSettings.gravity * Timer::Instance()->PhysicsDeltaTime());
+			if (mCollisionLayers[i][j]->rb.useGravity)
+				mCollisionLayers[i][j]->rb.velocity += Vec2(0, -physicsSettings.gravity * 2 * Timer::Instance()->PhysicsDeltaTime());
+			//printf("Duck velocity is: x - %F and y - %F\n", mCollisionLayers[i][j]->rb.velocity.x, mCollisionLayers[i][j]->rb.velocity.y);
+			
+			//mCollisionLayers[i][j]->rb.acceleration.y = -physicsSettings.gravity / 2;
+			//mCollisionLayers[i][j]->rb.velocity += (mCollisionLayers[i][j]->rb.acceleration - mCollisionLayers[i][j]->rb.friction);
+			//mCollisionLayers[i][j]->rb.velocity += mCollisionLayers[i][j]->rb.acceleration - mCollisionLayers[i][j]->rb.friction * mCollisionLayers[i][j]->rb.velocity * mCollisionLayers[i][j]->rb.velocity;
+
+			
+			//ApplyDrag(mCollisionLayers[i][j]->rb);
 		}
 	}
 }

@@ -103,6 +103,11 @@ GameManager::~GameManager()
 	sprite = NULL;
 }
 
+void GameManager::Quit()
+{
+	mQuit = true;
+}
+
 void GameManager::Run()
 {
 	while (!mQuit)

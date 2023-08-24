@@ -3,6 +3,8 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "Duck.h"
+#include "UIButton.h"
+
 
 class TextScene : public Scene
 {
@@ -12,6 +14,9 @@ public:
 		GameObject* obj = AddObject(new Sprite("New Gaming!", "stocky.ttf", 72, { 0, 0, 255 }));
 		obj->Position(Vector2(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT));
 		obj->Name("Main Character");
+
+		GameObject* uiObj = AddObject(new CustomButton());
+		uiObj->Position(Vector2(Graphics::SCREEN_WIDTH + 200, Graphics::SCREEN_HEIGHT + 200));
 	}
 };
 

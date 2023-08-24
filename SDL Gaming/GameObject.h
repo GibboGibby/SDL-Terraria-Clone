@@ -6,6 +6,7 @@
 #include <string>
 #define Input InputManager::Instance()
 #define deltaTime Timer::Instance()->DeltaTime()
+#define fixedDeltaTime Timer::Instance()->PhysicsDeltaTime()
 
 class GameObject 
 {

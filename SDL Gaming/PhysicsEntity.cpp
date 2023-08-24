@@ -102,7 +102,7 @@ void PhysicsEntity::AddForce(Vector2 force, ForceMode mode)
 		break;
 	case VelocityChange:
 		break;
-	}
+	} 
 }
 
 void PhysicsEntity::AddForce(Vector2 velocity)

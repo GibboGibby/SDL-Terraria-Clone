@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Engine\Physics">
       <UniqueIdentifier>{7aa2e4a8-3d8d-4929-8b5a-aa34ff4866e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Bases\UI">
+      <UniqueIdentifier>{254f3caa-be77-4e85-b071-98d4f94fb604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Bases\UI">
+      <UniqueIdentifier>{4de7df28-8081-4fe0-99ae-bafe02dd2c95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -110,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Source Files\Engine\Bases\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\Engine\Bases\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +190,15 @@
     </ClInclude>
     <ClInclude Include="PhysicsHelper.h">
       <Filter>Header Files\Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Header Files\Engine\Bases\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>Header Files\Engine\Bases\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextButton.h">
+      <Filter>Header Files\Engine\Bases\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

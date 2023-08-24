@@ -46,6 +46,8 @@ public:
 
 	SceneManager* GetSceneManager() { return mSceneMgr; }
 
+	void Quit();
+
 private:
 	GameManager();
 	~GameManager();

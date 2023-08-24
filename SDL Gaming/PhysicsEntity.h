@@ -2,6 +2,29 @@
 #include "PhysicsHelper.h"
 #include <vector>
 
+struct RigidBody
+{
+	float angularDrag;
+	float inv_mass;
+	float angularVelocity;
+	bool automaticCenterOfMass;
+	//bool automaticInertiaTensor;
+	Vector2 centerOfMass = VEC2_ZERO;
+	bool constraints[2] = { false, false };
+	bool detectCollisions;
+	bool freezeRotation;
+	float mass = 1.0f;
+	float drag = 0.25f;
+	float friction = 0.35f;
+	float maxAngularVelocity = 7;
+	Vec2 maxLinearVelocity = {-1,-1};
+	bool isKinematic = true;
+	bool isStatic = false;
+	bool useGravity = true;
+	float restitution = 1.0f;
+	Vector2 velocity;
+	Vector2 acceleration = VEC2_ZERO;
+};
 
 
 class PhysicsEntity : public GameObject
@@ -17,30 +40,6 @@ protected:
 	Collider* mBroadPhaseCollider;
 
 public:
-
-	struct RigidBody
-	{
-		float angularDrag;
-		float inv_mass;
-		float angularVelocity;
-		bool automaticCenterOfMass;
-		//bool automaticInertiaTensor;
-		Vector2 centerOfMass = VEC2_ZERO;
-		bool constraints[2] = {false, false};
-		bool detectCollisions;
-		bool freezeRotation;
-		float mass = 1.0f;
-		float maxAngularVelocity = 7;
-		float maxLinearVelocity;
-		bool isKinematic = true;
-		bool isStatic = false;
-		bool useGravity = true;
-		float restitution = 1.0f;
-		Vector2 velocity;
-		Vector2 acceleration = VEC2_ZERO;
-	};
-
-	
 
 	RigidBody rb;
 
