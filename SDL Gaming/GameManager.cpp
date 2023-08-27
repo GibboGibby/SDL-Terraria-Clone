@@ -115,9 +115,16 @@ void GameManager::Run()
 		Sint32 mouseWheelX = 0;
 		Sint32 mouseWheelY = 0;
 		mTimer->Update();
-			if (mTimer->DeltaTime() >= 1.0f / FRAME_RATE)
+
+		if (mTimer->PhysicsDeltaTime() >= 1.0f / PHYSICS_FRAME_RATE)
+		{
+			mSceneMgr->GetScene()->PhysicsUpdate();
+			mPhysMgr->PhysicsUpdate();
+			mTimer->ResetPhysics();
+		}
+		if (mTimer->DeltaTime() >= 1.0f / FRAME_RATE)
 			{
-			while (SDL_PollEvent(&mEvent) != 0)
+		while (SDL_PollEvent(&mEvent) != 0)
 			{
 				switch (mEvent.type)
 				{
@@ -247,12 +254,7 @@ void GameManager::Run()
 
 		//mInputMgr->ResetMouseWheel();
 
-		if (mTimer->PhysicsDeltaTime() >= 1.0f / PHYSICS_FRAME_RATE)
-		{
-			mSceneMgr->GetScene()->PhysicsUpdate();
-			mPhysMgr->PhysicsUpdate();
-			mTimer->ResetPhysics();
-		}
+		
 
 		// There is a delay here however I am not sure if it can be stopped
 		//SDL_Delay(7);

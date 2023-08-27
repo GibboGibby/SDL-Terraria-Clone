@@ -1,5 +1,6 @@
 #include "PhysicsEntity.h"
 #include "MathsHelper.h"
+#include "ExtraPhysics.h"
 
 PhysicsEntity::PhysicsEntity()
 {
@@ -104,6 +105,11 @@ void PhysicsEntity::Hit(PhysicsEntity* other)
 void PhysicsEntity::OnCollisionEnter(PhysicsEntity* other)
 {
 
+}
+
+bool PhysicsEntity::Raycast(Vector2 origin, Vector2 direction, float distance)
+{
+	return Physics::Raycast(origin, direction, distance, this);
 }
 
 void PhysicsEntity::AddForce(Vector2 force, ForceMode mode)

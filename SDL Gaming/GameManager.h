@@ -14,7 +14,7 @@ private:
 	static GameManager* instance;
 
 	const int FRAME_RATE = 144;
-	const int PHYSICS_FRAME_RATE = 60;
+	const int PHYSICS_FRAME_RATE = 5;
 
 	bool mQuit;
 	Graphics* mGraphics;

@@ -14,6 +14,8 @@ private:
 
 	bool cameraFollow = false;
 
+	bool canJump = false;
+
 public:
 	MainDuck(bool enemy = false);
 	~MainDuck();

@@ -1,5 +1,5 @@
 #include "Duck.h"
-#include "ExtraPhysics.h"
+
 
 
 MainDuck::MainDuck(bool enemy)
@@ -60,6 +60,16 @@ void MainDuck::Update()
 	if (Name() != "Main Character")
 		return;
 
+	if (canJump)
+	{
+		printf("Can jump is recognised\n");
+		if (Input->GetKeyDown(SDL_SCANCODE_W))
+		{
+			//rb.velocity += Vector2(0.0f, -5.0f) * deltaTime;
+			rb.velocity.y = 0;
+			AddForce(Vec2(0.0f, 10.f));
+		}
+	}
 	
 
 	if (Input->GetKey(SDL_SCANCODE_D))
@@ -72,13 +82,6 @@ void MainDuck::Update()
 	if (Input->GetKey(SDL_SCANCODE_A))
 	{
 		rb.velocity += Vector2(-75.f, 0.0f) * deltaTime;
-	}
-
-	if (Input->GetKeyDown(SDL_SCANCODE_W))
-	{
-		//rb.velocity += Vector2(0.0f, -5.0f) * deltaTime;
-		rb.velocity.y = 0;
-		AddForce(Vec2(0.0f, 10.f));
 	}
 
 	if (Input->GetKey(SDL_SCANCODE_S))
@@ -210,15 +213,28 @@ void MainDuck::Render()
 	//if (Active())
 	sprite->Render();
 	PhysicsEntity::Render();
+	Vector2 screenPos = SceneManager::Instance()->GetScene()->WorldToScreenPosition(Position());
+	//Graphics::Instance()->DrawLine(screenPos, screenPos + VEC2_RIGHT * 100.f);
 
 }
 
 void MainDuck::FixedUpdate()
 {
-	bool ray = Physics::Raycast(Position(), -VEC2_UP, 100);
+	if (Name() != "Main Character")
+		return;
+
+	//bool ray = Physics::Raycast(Position(), -VEC2_UP, 100.f, this);
+	bool ray = Raycast(Position(), VEC2_RIGHT, 100.f);
+	printf("Result of ray is: %s\n", ray ? "true" : "false");
+	if (ray)
+		canJump = true;
+	else
+		canJump = false;
+
+	//printf("result of can jump is: %s\n", canJump ? "true" : "false");
 }
 
 void MainDuck::LateUpdate()
 {
-
+	
 }

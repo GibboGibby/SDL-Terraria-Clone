@@ -66,7 +66,7 @@ public:
 
 	void CollisionUpdate();
 	void PhysicsUpdate();
-	bool CollisionCheck(Collider* col);
+	bool CollisionCheck(Collider* col, PhysicsEntity* entity);
 
 private:
 

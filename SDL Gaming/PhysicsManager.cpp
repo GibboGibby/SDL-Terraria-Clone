@@ -182,7 +182,7 @@ void PhysicsManager::PhysicsUpdate()
 	}
 }
 
-bool PhysicsManager::CollisionCheck(Collider* col)
+bool PhysicsManager::CollisionCheck(Collider* col, PhysicsEntity* entity)
 {
 	for (unsigned int i = 0; i < static_cast<unsigned int>(CollisionLayers::MaxLayers); i++)
 	{
@@ -190,6 +190,14 @@ bool PhysicsManager::CollisionCheck(Collider* col)
 		{
 			Manifold m;
 			//Check for collision
+			if (entity != NULL)
+			{
+				if (mCollisionLayers[i][j]->GetID() == entity->GetID())
+				{
+					continue;
+				}
+			}
+				
 			if (mCollisionLayers[i][j]->CheckCollision(col, m))
 			{
 				return true;

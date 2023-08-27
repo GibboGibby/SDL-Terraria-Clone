@@ -35,7 +35,7 @@ protected:
 
 	std::vector<Collider*> mColliders;
 
-	
+	bool Raycast(Vector2 origin, Vector2 direction, float distance = -1);
 	
 	Collider* mBroadPhaseCollider;
 
@@ -65,6 +65,8 @@ public:
 	virtual void Update();
 	virtual void UpdateTexture();
 	virtual void Render();
+
+	
 
 protected:
 	virtual bool IgnoreCollision();
