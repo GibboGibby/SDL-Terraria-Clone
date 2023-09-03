@@ -11,7 +11,8 @@ public:
 	World();
 	~World();
 
-
+	// For real I think I need to move onto having each block be a struct with the type
+	// And the sprite (if I even have a sprite or just render the image purely)
 
 	void Serialize();
 	void DeSerialize();

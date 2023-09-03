@@ -2,27 +2,30 @@
 
 Block::Block(BlockType type)
 {
-	sprite = new Sprite("dirt-full.png");
-	sprite->Name("BlockName");
-	sprite->Position(VEC2_ZERO);
-	sprite->Parent(this);
+	//sprite = new Sprite("dirt-full.png");
+	
 
-	/*
+	
 	switch (type)
 	{
 	case Dirt:
-		blockSprite = new Sprite("dirt.png");
+		sprite = new Sprite("dirt-full.png");
 		break;
 	case Cobble:
+		sprite = new Sprite("stone-full.png");
 		break;
 	case Iron:
 		break;
 	default:
-		blockSprite = new Sprite("dirt.png");
+		sprite = new Sprite("dirt.png");
 		break;
 	}
 
-	*/
+	//sprite->Name("BlockName");
+	sprite->Position(VEC2_ZERO);
+	sprite->Parent(this);
+
+	
 	AddCollider(new BoxCollider(sprite->ScaledDimensions()));
 
 	mId = PhysicsManager::Instance()->RegisterEntity(this, PhysicsManager::CollisionLayers::Environment);

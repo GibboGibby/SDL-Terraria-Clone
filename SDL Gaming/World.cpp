@@ -28,8 +28,11 @@ World::World()
 	{
 		for (int j = 0; j < YROWS; j++)
 		{
-			//if (j > 5) continue;
-			Block* block = new Block(Dirt);
+			Block* block;
+			if (j > 5) 
+				block = new Block(Cobble);
+			else
+				block = new Block(Dirt);
 			mBlocks[i][j] = block;
 			block->Parent(this);
 			//Vector2 scaledDims = block->GetScaledDimensions();
