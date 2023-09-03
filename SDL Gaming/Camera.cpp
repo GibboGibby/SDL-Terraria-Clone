@@ -47,6 +47,17 @@ void Camera::Update()
 		SceneManager::Instance()->GetScene()->ScaleObjects((mouseScroll < 0) ? 0.5f : 2);
 	}
 	*/
+
+	if (Input->GetKey(SDL_SCANCODE_LEFT))
+	{
+		Position(Position() + Vec2(-50, 0) * deltaTime);
+	}
+	if (Input->GetKey(SDL_SCANCODE_RIGHT))
+	{
+		Position(Position() + Vec2(50, 0) * deltaTime);
+
+	}
+
 }
 
 void Camera::Render()

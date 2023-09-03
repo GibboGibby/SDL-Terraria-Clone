@@ -12,7 +12,7 @@ MainDuck::MainDuck(bool enemy)
 
 	sprite->Name("Main Character" + enemy ? " - ENEMY" : "");
 	sprite->Parent(this);
-	sprite->Scale(Vector2(10.f, 10.f));
+	sprite->Scale(Vector2(6.f, 6.0f));
 
 	//rb.useGravity = false;
 
@@ -62,7 +62,7 @@ void MainDuck::Update()
 
 	if (canJump)
 	{
-		printf("Can jump is recognised\n");
+		//printf("Can jump is recognised\n");
 		if (Input->GetKeyDown(SDL_SCANCODE_W))
 		{
 			//rb.velocity += Vector2(0.0f, -5.0f) * deltaTime;
@@ -91,16 +91,26 @@ void MainDuck::Update()
 
 	if (Input->GetMouseButton(Input->LEFT))
 	{
-		rb.velocity = VEC2_ZERO;
-		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
+		//Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
 	}
 	if (Input->GetMouseButton(Input->RIGHT))
 	{
-		Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
+		//rb.velocity = VEC2_ZERO;
+		//Position(SceneManager::Instance()->GetScene()->ScreenToWorldPosition(Input->GetMousePos()));
 	}
 	if (Input->GetKeyDown(SDL_SCANCODE_RIGHT))
 	{
-		Position(Position() + Vec2(1, 0));
+		//Position(Position() + Vec2(1, 0));
+	}
+
+	if (Input->GetKeyDown(SDL_SCANCODE_RETURN))
+	{
+		cameraFollow = !cameraFollow;
+	}
+
+	if (cameraFollow)
+	{
+		MainCam->Position(Position() - Vec2(Graphics::SCREEN_WIDTH / 2, Graphics::SCREEN_HEIGHT / 2));
 	}
 
 
@@ -133,15 +143,7 @@ void MainDuck::Update()
 		Scale(Vector2(prevScale.x + 5.f * deltaTime, prevScale.y));
 	}
 
-	if (Input->GetKeyDown(SDL_SCANCODE_RETURN))
-	{
-		cameraFollow = !cameraFollow;
-	}
-
-	if (cameraFollow)
-	{
-		MainCam->Position(Position());
-	}
+	
 
 	if (Input->GetKeyDown(SDL_SCANCODE_Q))
 	{
@@ -213,7 +215,7 @@ void MainDuck::Render()
 	//if (Active())
 	sprite->Render();
 	PhysicsEntity::Render();
-	Vector2 screenPos = SceneManager::Instance()->GetScene()->WorldToScreenPosition(Position());
+	//Vector2 screenPos = SceneManager::Instance()->GetScene()->WorldToScreenPosition(Position());
 	//Graphics::Instance()->DrawLine(screenPos, screenPos + VEC2_RIGHT * 100.f);
 
 }
@@ -224,8 +226,9 @@ void MainDuck::FixedUpdate()
 		return;
 
 	//bool ray = Physics::Raycast(Position(), -VEC2_UP, 100.f, this);
-	bool ray = Raycast(Position(), VEC2_RIGHT, 100.f);
-	printf("Result of ray is: %s\n", ray ? "true" : "false");
+	//bool ray = Raycast(Position(), VEC2_RIGHT, 100.f);
+	bool ray = true;
+	//printf("Result of ray is: %s\n", ray ? "true" : "false");
 	if (ray)
 		canJump = true;
 	else

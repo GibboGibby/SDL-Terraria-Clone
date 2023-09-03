@@ -127,6 +127,7 @@ void PhysicsManager::CollisionUpdate()
 {
 	for (unsigned int i = 0; i < static_cast<unsigned int>(CollisionLayers::MaxLayers); i++)
 	{
+		if (static_cast<CollisionLayers>(i) == CollisionLayers::Environment) continue;
 		for (unsigned int j = 0; j < static_cast<unsigned int>(CollisionLayers::MaxLayers); j++)
 		{
 			if (mLayerMasks[i].test(j) && i <= j)
@@ -136,6 +137,9 @@ void PhysicsManager::CollisionUpdate()
 					for (unsigned int l = 0; l < mCollisionLayers[j].size(); l++)
 					{
 						Manifold m;
+						if (!mCollisionLayers[i][k]->Active() || !mCollisionLayers[j][l]->Active()) continue;
+						float dist = (mCollisionLayers[i][k]->Position() - mCollisionLayers[j][l]->Position()).Magnitude();
+						if (dist > 100) continue;
 						if (mCollisionLayers[i][k]->CheckCollision(mCollisionLayers[j][l], m))
 						{
 							

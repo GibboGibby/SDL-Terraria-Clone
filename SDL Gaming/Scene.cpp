@@ -3,7 +3,8 @@
 
 Scene::Scene()
 {
-	activeCamera = new Camera();
+	if (activeCamera == nullptr)
+		activeCamera = new Camera();
 	//Start();
 }
 

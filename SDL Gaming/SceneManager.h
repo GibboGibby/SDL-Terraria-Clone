@@ -11,7 +11,8 @@ public:
 		SCENE_MAIN_MENU,
 		SCENE_MAIN_GAME,
 		SCENE_OPTIONS,
-		SCENE_THING
+		SCENE_THING,
+		SCENE_TESTING
 	};
 private:
 	static SceneManager* instance;

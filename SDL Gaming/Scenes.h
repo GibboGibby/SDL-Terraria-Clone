@@ -4,6 +4,8 @@
 #include "Texture.h"
 #include "Duck.h"
 #include "UIButton.h"
+#include "World.h"
+#include "WASDCamera.h"
 
 
 class TextScene : public Scene
@@ -27,10 +29,14 @@ public:
 	{
 		//delete activeCamera;
 		//activeCamera = NULL;
+
+		activeCamera = new Camera();
+
 		GameObject* obj = AddObject(new MainDuck());
 		obj->Position(Vector2(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT));
 		obj->Name("Main Character");
 
+		/*
 		GameObject* obj2 = AddObject(new MainDuck(true));
 		obj2->Position(Vector2(Graphics::SCREEN_WIDTH + 200, Graphics::SCREEN_HEIGHT + 200));
 		obj2->Name("Main Character Enemy");
@@ -39,5 +45,25 @@ public:
 		GameObject* obj3 = AddObject(new MainDuck(true));
 		obj3->Position(Vector2(Graphics::SCREEN_WIDTH - 200, Graphics::SCREEN_HEIGHT - 200));
 		obj3->Name("Main Character Other Enemy");
+
+		*/
+		//GameObject* obj4 = AddObject(new Block(Dirt));
+		//obj4->Position(Vector2(Graphics::SCREEN_WIDTH - 400, Graphics::SCREEN_HEIGHT - 400));
+
+
+		GameObject* world = AddObject(new World());
+
+		//GameObject* block = AddObject(new Block(Dirt));
+		//block->Position(Vector2(Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT));
+	}
+};
+
+class BlockScene : public Scene
+{
+public:
+	BlockScene()
+	{
+		activeCamera = new WASDCamera();
+		GameObject* world = AddObject(new World());
 	}
 };

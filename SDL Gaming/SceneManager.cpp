@@ -39,6 +39,8 @@ void SceneManager::ChangeScene(SCENES scene)
 		break;
 	case SCENE_THING:
 		break;
+	case SCENE_TESTING:
+		currentScene = new BlockScene();
 	}
 }
 

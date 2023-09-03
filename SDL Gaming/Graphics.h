@@ -15,7 +15,7 @@ public:
 
 private:
 
-	const float camOffset = 10.f;
+	const float camOffset = 0.f;
 	static Graphics* instance;
 	static bool initialized;
 

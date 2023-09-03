@@ -33,10 +33,11 @@ GameManager::GameManager()
 	mAudioMgr = AudioManager::Instance();
 
 	mPhysMgr = PhysicsManager::Instance();
-	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Friendly, PhysicsManager::CollisionFlags::Enemy | PhysicsManager::CollisionFlags::EnemyProjectiles);
-	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::FriendlyProjectiles, PhysicsManager::CollisionFlags::Enemy);
-	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Enemy, PhysicsManager::CollisionFlags::Friendly | PhysicsManager::CollisionFlags::FriendlyProjectiels);
-	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::EnemyProjectiles, PhysicsManager::CollisionFlags::Friendly);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Friendly, PhysicsManager::CollisionFlags::Enemy | PhysicsManager::CollisionFlags::EnemyProjectiles | PhysicsManager::CollisionFlags::Environment);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::FriendlyProjectiles, PhysicsManager::CollisionFlags::Enemy | PhysicsManager::CollisionFlags::Environment);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Enemy, PhysicsManager::CollisionFlags::Friendly | PhysicsManager::CollisionFlags::FriendlyProjectiels | PhysicsManager::CollisionFlags::Environment);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::EnemyProjectiles, PhysicsManager::CollisionFlags::Friendly | PhysicsManager::CollisionFlags::Environment);
+	mPhysMgr->SetLayerCollisionMask(PhysicsManager::CollisionLayers::Environment, PhysicsManager::CollisionFlags::Friendly | PhysicsManager::CollisionFlags::Enemy | PhysicsManager::CollisionFlags::EnemyProjectiles | PhysicsManager::CollisionFlags::FriendlyProjectiels | PhysicsManager::CollisionFlags::Environment);
 
 	mSceneMgr = SceneManager::Instance();
 
@@ -153,7 +154,6 @@ void GameManager::Run()
 			mInputMgr->Update();
 			mInputMgr->SetMouseWheel(mouseWheelX, mouseWheelY);
 			//mInputMgr->UpdateMouseWheel();
-			
 #if _DEBUG
 			if (mInputMgr->GetKeyDown(SDL_SCANCODE_1))
 			{
@@ -163,7 +163,12 @@ void GameManager::Run()
 			{
 				mSceneMgr->ChangeScene(SceneManager::SCENE_MAIN_GAME);
 			}
+			else if (mInputMgr->GetKeyDown(SDL_SCANCODE_3))
+			{
+				mSceneMgr->ChangeScene(SceneManager::SCENE_TESTING);
+			}
 #endif
+
 
 			if (mInputMgr->GetKeyDown(SDL_SCANCODE_G))
 			{
@@ -244,6 +249,7 @@ void GameManager::Run()
 
 			
 			mPhysMgr->CollisionUpdate();
+
 
 			
 			mInputMgr->UpdatePrevInput();
